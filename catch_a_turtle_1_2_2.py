@@ -18,7 +18,7 @@ font_setup = ("Arial", 20, "normal")
 spot_size = 2
 spot_color = 'pink'
 spot_shape = "turtle"
-timer = 30
+timer = 5
 counter_interval = 1000 
 timer_up = False
 score = 0
@@ -49,20 +49,36 @@ counter.pendown()
 #counter.showturtle()
 
 #-----game functions-----
+#manages the leaderboard for the top 5 scorers
+def manage_leaderboard():
+	global leader_name_list
+	global leader_scores_list
+	global score
+	global spot	
 
+	#load all the leaderboard records into the lists
+	lb.load_leaderboard(leaderboard_file_name, leader_name_list, leader_scores_list)
+
+	#TODO
+
+	if (len(leader_scores_list) < 5 or score > leader_scores_list[4]):
+		lb.update_leaderboard(leaderboard_file_name, leader_name_list, leader_scores_list, player_name, score)
+		lb.draw_leaderboard(leader_name_list, leader_scores_list, True, spot, score)
+	else:
+		lb.draw_leaderboard(leader_name_list, leader_scores_list, False, spot, score)
 
 # countdown function
 def countdown():
-  global timer, timer_up
-  counter.clear()
-  if timer <= 0:
-    counter.write("Time's Up", font=font_setup)
-    timer_up = True
-	  manage_leaderboard()		
-  else:
-    counter.write("Timer: " + str(timer), font=font_setup)
-    timer -= 1
-    counter.getscreen().ontimer(countdown, counter_interval) 
+	global timer, timer_up
+	counter.clear()
+	if timer <= 0:
+		counter.write("Time's Up", font=font_setup)
+		timer_up = True
+		manage_leaderboard()
+	else:
+		counter.write("Timer: " + str(timer), font=font_setup)
+		timer -= 1
+		counter.getscreen().ontimer(countdown, counter_interval) 
 
 # update and display the score
 def update_score():
@@ -73,12 +89,12 @@ def update_score():
 
 # what happens when the spot is clicked
 def spot_clicked(x,y):
-  global timer_up
-  if (not timer_up):
-    update_score()
-    change_position()
-  else:
-    spot.hideturtle()
+	global timer_up
+	if (not timer_up):
+		update_score()
+		change_position()			
+	else:
+		spot.hideturtle()
   
 # resize the turtle
 def resize():
@@ -108,23 +124,7 @@ def start_game():
   spot.onclick(spot_clicked)
   counter.getscreen().ontimer(countdown, counter_interval)
 
-#manages the leaderboard for the top 5 scorers
-def manage_leaderboard():
-	global leader_name_list
-	global leader_scores_list
-	global score
-	global spot	
 
-	#load all the leaderboard records into the lists
-	lb.load_leaderboard(leaderboard_file_name, leader_name_list, leader_scores_list)
-
-	#TODO
-
-	if (len(leader_scores_list) < 5 or score > leader_scores_list[4]):
-		lb.update_leaderboard(leaderboard_file_name, leader_name_list, leader_scores_list, player_name, score)
-		lb.draw_leaderboard(leader_name_list, leader_scores_list, True, spot, score)
-	else:
-		lb.draw_leaderboard(leader_name_list, leader_scores_list, False, spot, score)
 
 
 
@@ -135,3 +135,7 @@ start_game()
 wn = trtl.Screen()
 wn.bgcolor("white smoke")
 wn.mainloop()
+
+
+
+
