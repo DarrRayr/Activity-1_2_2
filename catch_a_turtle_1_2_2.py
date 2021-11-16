@@ -7,6 +7,15 @@
 ##############################################################################
 #-----import statements-----
 import turtle as trtl
+##############################################################################
+#   a121_TR_catch_a_turtle_complete.py
+#   Example solution:
+#      A game where a turtle appears at random locations on the screen and
+#      a player raises their score by clicking the turtles in time. 
+#      Complete with all the challenges.
+##############################################################################
+#-----import statements-----
+import turtle as trtl
 import random as rand
 import leaderboard as lb
 
@@ -18,7 +27,7 @@ font_setup = ("Arial", 20, "normal")
 spot_size = 2
 spot_color = 'pink'
 spot_shape = "turtle"
-timer = 5
+timer = 30
 counter_interval = 1000 
 timer_up = False
 score = 0
@@ -135,7 +144,3 @@ start_game()
 wn = trtl.Screen()
 wn.bgcolor("white smoke")
 wn.mainloop()
-
-
-
-
