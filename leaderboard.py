@@ -31,7 +31,7 @@ def load_leaderboard(file_name, leader_names, leader_scores):
 		# TODO 3: read the player score using a similar loop
 
 		index = index + 1
-		while (line[index] != "/n"):
+		while (line[index] != "\n"):
 			leader_score = leader_score + line[index]
 			index = index + 1
 
@@ -101,7 +101,7 @@ def draw_leaderboard(leader_names, leader_scores, high_scorer, turtle_object, pl
 
 	#loop through the lists and use the same index to display the corresponding name and score, seperatred by a tab space '/t'
 	while  leader_index <  len(leader_names):
-		turtle_object.write(str(leader_index + 1) + "/t" + leader_names[leader_index] + "/t" + str(leader_scores[leader_index]), font=font_setup)
+		turtle_object.write(str(leader_index + 1) + " " + leader_names[leader_index] + " " + str(leader_scores[leader_index]), font=font_setup)
 		turtle_object.penup()
 		turtle_object.setposition(-200,int(turtle_object.ycor())-50)
 		turtle_object.pendown()
@@ -125,4 +125,6 @@ def draw_leaderboard(leader_names, leader_scores, high_scorer, turtle_object, pl
 		turtle_object.write("... Silver medal!", font=font_setup)
 	elif (player_score >= gold_score):
 		turtle_object.write("... Gold medal!", font=font_setup)	
+  
+
   
